@@ -6,29 +6,27 @@ function setup() {
     });
 }
 
-function removeFullPhoto() {
-    const $full = document.querySelector('.full');
-    if ($full) {
-        $full.remove();
-    }
-}
+function removeElement(sel) {
+    const $element = document.querySelector(sel);
 
-function removeDetails() {
-    const $div = document.querySelector('.div');
-    if ($div) {
-        $div.remove();
+    if ($element) {
+        $element.remove();
     }
 }
 
 function displayPhotoDetails(photo) {
     const template = `
-    <div>
-    <h3>${photo.author}</h3>, 
-    <p>${photo.title}</p>,
-     <p>${photo.tags.map(el => `#${el}`).join(', ')}</p>
-     </div>
-     `;
+        <div>
+            <h3>${photo.author}</h3>
+            <p>${photo.title}</p>
+            <p>${photo.tags.map(el => `#${el}`).join(', ')}</p>
+        </div>
+    `;
+
+    removeElement('.details');
+
     const $divContainer = document.createElement('div');
+    $divContainer.classList.add('details');
     $divContainer.innerHTML = template;
 
     const $area = document.querySelector('#app');
@@ -36,8 +34,7 @@ function displayPhotoDetails(photo) {
 }
 
 function zoomPhoto(photo) {
-    removeFullPhoto();
-    removeDetails();
+    removeElement('.full');
 
     const $area = document.querySelector('#app');
     const $bigSize = document.createElement('img');
